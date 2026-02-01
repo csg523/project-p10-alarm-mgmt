@@ -100,19 +100,24 @@ stateDiagram-v2
     }
 
     state Operational {
-        %% Parallel Region 1: Sensor Classification
         state "Sensor Evaluation" as Sensors {
-            [*] --> S1_Monitor
-            S1_Monitor --> S1_Safe
-            S1_Safe --> S1_Caution : S1 > 180
-            S1_Caution --> S1_Critical : S1 > 200
-            S1_Critical --> S1_Caution : S1 < 195
-            S1_Caution --> S1_Safe : S1 < 175
+            [*] --> S1_Eval
+            S1_Eval --> S1_Stat : Temp Thresholds
             --
-            [*] --> S6_Monitor
-            S6_Monitor --> S6_Safe
-            S6_Safe --> S6_Caution : S6 > 4
-            S6_Caution --> S6_Critical : S6 > 6
+            [*] --> S2_Eval
+            S2_Eval --> S2_Stat : Pressure Thresholds
+            --
+            [*] --> S3_Eval
+            S3_Eval --> S3_Stat : Flow Thresholds
+            --
+            [*] --> S4_Eval
+            S4_Eval --> S4_Stat : Cooling Thresholds
+            --
+            [*] --> S5_Eval
+            S5_Eval --> S5_Stat : Voltage Thresholds
+            --
+            [*] --> S6_Eval
+            S6_Eval --> S6_Stat : Vibration Thresholds
         }
 
         --
@@ -155,3 +160,4 @@ stateDiagram-v2
 | Date | Change          | Author  |
 | ---- | --------------- | ------- |
 | 01-02-2026 | Initial version | Desigan PK |
+| 01-02-2026 | Updated UML Statechart | Desigan PK |
