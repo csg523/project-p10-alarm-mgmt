@@ -151,9 +151,10 @@ stateDiagram-v2
 ```
 
 ## Safety and Error Handling (Behavioral View)
- - Fail-Safe Defaults: If a UART frame is malformed or missing for >2 cycles, the system assumes the worst-case scenario and triggers a "Sensor Loss" Critical alarm.
+ - Fail-Safe Defaults: If a UART frame is malformed or missing more than 2 cycles, the system assumes the worst-case scenario and triggers a "Sensor Loss" Critical alarm.
  - Priority Escalation: Priority 1 (Critical) alarms are non-suppressible. If multiple Critical alarms trigger, they are queued by timestamp.
  - Determinism: The Operational state logic is executed at a fixed frequency (e.g., 100Hz) to ensure predictable response times regardless of alarm load.
+ - State Persistence	Critical alarms are stored in non-volatile memory to survive power cycles and require manual reset.
  
 ## Change Log
 
@@ -161,3 +162,4 @@ stateDiagram-v2
 | ---- | --------------- | ------- |
 | 01-02-2026 | Initial version | Desigan PK |
 | 01-02-2026 | Updated UML Statechart | Desigan PK |
+| 01-02-2026 | Updated safety and Error handling | Sreedhar |
