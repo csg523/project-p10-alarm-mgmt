@@ -6,8 +6,7 @@
 * **UART Frame Parser:** Validates checksums and extracts sensor IDs/Values.
 * **Classification Engine:** Maps raw values to Safe, Caution, or Critical regions.
 * **Logic Engine:** Evaluates multi-sensor dependencies (e.g., Thermal Runaway).
-* **Alarm Manager:** Handles the lifecycle (UnACK, ACK, Cleared) and prioritization.
-* **Hysteresis Controller:** Prevents state oscillation (chatter) for noisy sensors.
+* **Alarm Manager:** Handles the lifecycle (UnACK, ACK, Cleared) and prioritization..
 
 ### Outside the System
 * **Process Sensors (S1–S6):** Sources providing periodic UART updates.
@@ -147,7 +146,6 @@ stateDiagram-v2
 ```
 
 ## Safety and Error Handling (Behavioral View)
- - Hysteresis Implementation: To prevent alarm flooding, a deadband of 5 units is applied to all recovery transitions (e.g., S1 triggers at 180 but clears at 175).
  - Fail-Safe Defaults: If a UART frame is malformed or missing for >2 cycles, the system assumes the worst-case scenario and triggers a "Sensor Loss" Critical alarm.
  - Priority Escalation: Priority 1 (Critical) alarms are non-suppressible. If multiple Critical alarms trigger, they are queued by timestamp.
  - Determinism: The Operational state logic is executed at a fixed frequency (e.g., 100Hz) to ensure predictable response times regardless of alarm load.
